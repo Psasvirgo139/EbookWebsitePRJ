@@ -9,20 +9,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author ADMIN
  */
 public class DBConnection {
+
     public static String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    public static String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=PRJEdunext2;encrypt=true;trustServerCertificate=true";
+    public static String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=EBookWebsite;encrypt=true;trustServerCertificate=true";
     public static String userDB = "sa";
     public static String passDB = "123";
 
     public static Connection getConnection() {
         Connection con = null;
         try {
+            // Nạp driver
             Class.forName(driverName);
+            // Kết nối tới SQL Server
             con = DriverManager.getConnection(dbURL, userDB, passDB);
             return con;
         } catch (Exception ex) {
@@ -31,10 +35,13 @@ public class DBConnection {
         return null;
     }
 
+    // Test nhanh kết nối DB bằng main
     public static void main(String[] args) {
         try (Connection con = getConnection()) {
             if (con != null) {
-                System.out.println("Connect to PRJEdunext2 Success");
+                System.out.println("Connect to EBookWebsite Success");
+            } else {
+                System.out.println("Connect to EBookWebsite Failed");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
