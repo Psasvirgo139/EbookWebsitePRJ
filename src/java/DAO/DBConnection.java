@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class DBConnection {
     public static String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    public static String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=PRJEdunext2;encrypt=true;trustServerCertificate=true";
+    public static String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=EBookWebsite;encrypt=true;trustServerCertificate=true";
     public static String userDB = "sa";
     public static String passDB = "123";
 
@@ -34,7 +34,7 @@ public class DBConnection {
     public static void main(String[] args) {
         try (Connection con = getConnection()) {
             if (con != null) {
-                System.out.println("Connect to PRJEdunext2 Success");
+                System.out.println("Connect to EBookWebsite Success");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
