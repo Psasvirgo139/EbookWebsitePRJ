@@ -75,7 +75,7 @@
                 <label>Trạng thái:</label> <span><c:out value="${user.status}"/></span><br>
                 <c:if test="${not empty userInfor}">
                     <label>Giới tính:</label> <span><c:out value="${userInfor.gender}"/></span><br>
-                    <label>Sinh nhật:</label> <span><c:out value="${userInfor.birthday}"/></span><br>
+                    <label>Sinh nhật:</label> <span><c:out value="${userInfor.birthDay}"/></span><br>
                     <label>Điện thoại:</label> <span><c:out value="${userInfor.phone}"/></span><br>
                     <label>Địa chỉ:</label> <span><c:out value="${userInfor.address}"/></span><br>
                     <label>Giới thiệu:</label> <span><c:out value="${userInfor.introduction}"/></span><br>

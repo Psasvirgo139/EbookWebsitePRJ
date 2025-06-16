@@ -81,17 +81,20 @@
             <form action="${pageContext.request.contextPath}/login" method="post" autocomplete="off">
                 <div class="form-group">
                     <label for="username">Tên đăng nhập hoặc Email</label>
-                    <input type="text" name="username" id="username" required
-                           value="<c:out value='${param.username != null ? param.username : (username != null ? username : "")}'/>" />
-                </div>
-                <div class="form-group">
-                    <label for="password">Mật khẩu</label>
-                    <input type="password" name="password" id="password" required />
-                </div>
-                <c:if test="${not empty error}">
-                    <div class="error-message">${error}</div>
-                </c:if>
-                <button type="submit" class="btn-login">Đăng nhập</button>
+
+                    <input type="text" name="usernameOrEmail" id="usernameOrEmail" required
+                           value="<c:out value='${param.usernameOrEmail != null ? param.usernameOrEmail : (username != null ? username : "")}'/>"
+
+
+                           </div>
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <input type="password" name="password" id="password" required />
+                    </div>
+                    <c:if test="${not empty error}">
+                        <div class="error-message">${error}</div>
+                    </c:if>
+                    <button type="submit" class="btn-login">Đăng nhập</button>
             </form>
         </div>
     </body>

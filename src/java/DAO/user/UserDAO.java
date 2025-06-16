@@ -23,7 +23,7 @@ public class UserDAO implements IUserDAO {
                         rs.getString("avatar_url"),
                         rs.getString("role"),
                         rs.getDate("created_at").toLocalDate(),
-                        rs.getObject("userinfor_id", Integer.class),
+                        (rs.getObject("userinfor_id") != null ? rs.getInt("userinfor_id") : null),
                         rs.getString("status"),
                         rs.getDate("last_login") != null ? rs.getDate("last_login").toLocalDate() : null
                 );
@@ -50,7 +50,7 @@ public class UserDAO implements IUserDAO {
                         rs.getString("avatar_url"),
                         rs.getString("role"),
                         rs.getDate("created_at").toLocalDate(),
-                        rs.getObject("userinfor_id", Integer.class),
+                        (rs.getObject("userinfor_id") != null ? rs.getInt("userinfor_id") : null),
                         rs.getString("status"),
                         rs.getDate("last_login") != null ? rs.getDate("last_login").toLocalDate() : null
                 );
@@ -112,36 +112,50 @@ public class UserDAO implements IUserDAO {
         return false;
     }
 
-    @Override
-    public User findByUsernameOrEmailAndPassword(String usernameOrEmail, String password) {
-        if (usernameOrEmail != null) {
-            usernameOrEmail = usernameOrEmail.trim();
-        }
-        if (password != null) {
-            password = password.trim();
-        }
-        String sql = "SELECT * FROM Users WHERE (username = ? OR email = ?) AND password_hash = ? AND status != 'deleted'";
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+ public User findByUsernameOrEmailAndPassword(String usernameOrEmail, String password) {
+    if (usernameOrEmail != null) usernameOrEmail = usernameOrEmail.trim();
+    if (password != null) password = password.trim();
 
-            System.out.println("DEBUG: username/email nhập vào: [" + usernameOrEmail + "]");
-            System.out.println("DEBUG: password nhập vào: [" + password + "]");
+    // Log thông tin nhận vào từ servlet
+    System.out.println("=====================================");
+    System.out.println("DEBUG: username/email nhập vào: [" + usernameOrEmail + "]");
+    System.out.println("DEBUG: password nhập vào: [" + password + "]");
+    System.out.println("DEBUG: Chuỗi SQL: SELECT * FROM Users WHERE (username = ? OR email = ?) AND password_hash = ? AND status != 'deleted'");
+    System.out.println("=====================================");
 
-            ps.setString(1, usernameOrEmail);
-            ps.setString(2, usernameOrEmail);
-            ps.setString(3, password);
+    String sql = "SELECT * FROM Users WHERE (username = ? OR email = ?) AND password_hash = ? AND status != 'deleted'";
+    try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                System.out.println("DEBUG: Đăng nhập thành công với user: " + rs.getString("username") + ", pass: " + rs.getString("password_hash"));
-                // ... (return User như cũ)
-            } else {
-                System.out.println("DEBUG: Không tìm thấy user nào!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        ps.setString(1, usernameOrEmail);
+        ps.setString(2, usernameOrEmail);
+        ps.setString(3, password);
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            System.out.println("DEBUG: Đăng nhập thành công với user: " + rs.getString("username") + ", pass: " + rs.getString("password_hash"));
+            return new User(
+                rs.getInt("id"),
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("password_hash"),
+                rs.getString("avatar_url"),
+                rs.getString("role"),
+                rs.getDate("created_at").toLocalDate(),
+                (rs.getObject("userinfor_id") != null ? rs.getInt("userinfor_id") : null),
+                rs.getString("status"),
+                rs.getDate("last_login") != null ? rs.getDate("last_login").toLocalDate() : null
+            );
+        } else {
+            System.out.println("DEBUG: Không tìm thấy user nào!");
         }
-        return null;
+    } catch (Exception e) {
+        System.out.println("DEBUG: Lỗi khi thực thi SQL trong findByUsernameOrEmailAndPassword:");
+        e.printStackTrace();
     }
+    return null;
+}
+
+
 
     @Override
     public UserInfor getUserInforById(int id) {
@@ -153,7 +167,7 @@ public class UserDAO implements IUserDAO {
                 return new UserInfor(
                         rs.getInt("id"),
                         rs.getString("phone"),
-                        rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null,
+                        rs.getDate("birthDay") != null ? rs.getDate("birthDay").toLocalDate() : null,
                         rs.getString("gender"),
                         rs.getString("address"),
                         rs.getString("introduction")
@@ -164,5 +178,22 @@ public class UserDAO implements IUserDAO {
         }
         return null;
     }
+    
+    public static void main(String[] args) {
+    UserDAO dao = new UserDAO();
+    // Thay đổi giá trị ở đây để test nhiều trường hợp khác nhau
+    String usernameOrEmail = "giangtran"; // hoặc "giangtran@example.com"
+    String password = "123456";
+
+    System.out.println("===== TEST LOGIN =====");
+    User user = dao.findByUsernameOrEmailAndPassword(usernameOrEmail, password);
+    if (user != null) {
+        System.out.println("KẾT QUẢ: Đăng nhập thành công!");
+        System.out.println("User: " + user.getUsername() + " | Email: " + user.getEmail());
+    } else {
+        System.out.println("KẾT QUẢ: Sai tài khoản hoặc mật khẩu!");
+    }
+}
+
 
 }

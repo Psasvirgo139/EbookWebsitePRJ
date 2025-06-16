@@ -30,8 +30,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String usernameOrEmail = request.getParameter("username");
-        String password = request.getParameter("password");
+        String usernameOrEmail = request.getParameter("usernameOrEmail");
+String password = request.getParameter("password");
+
         if (usernameOrEmail != null) usernameOrEmail = usernameOrEmail.trim();
         if (password != null) password = password.trim();
 
