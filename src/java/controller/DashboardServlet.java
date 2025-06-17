@@ -42,7 +42,7 @@ public class DashboardServlet extends HttpServlet {
         }
 
         // Lấy các số liệu thống kê
-        int userCount = userService.getAllUsers().size();
+        int userCount = userService.selectAllUsers().size();
         int ebookCount = ebookService.getAllEbooks().size();
 
         // Bạn có thể thêm các thống kê khác ở đây (vd: số sách đang chờ duyệt,...)

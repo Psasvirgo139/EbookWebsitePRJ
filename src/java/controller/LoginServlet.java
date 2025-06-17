@@ -36,7 +36,7 @@ String password = request.getParameter("password");
         if (usernameOrEmail != null) usernameOrEmail = usernameOrEmail.trim();
         if (password != null) password = password.trim();
 
-        User user = userService.login(usernameOrEmail, password);
+        User user = userService.checkLogin(usernameOrEmail, password);
         if (user != null) {
             if ("banned".equalsIgnoreCase(user.getStatus())) {
                 request.setAttribute("error", "Tài khoản của bạn đã bị khóa!");
