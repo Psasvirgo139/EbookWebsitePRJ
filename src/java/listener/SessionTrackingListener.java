@@ -20,7 +20,6 @@ public class SessionTrackingListener implements HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         activeSessions++;
-        System.out.println("Session Created. Current online users: " + activeSessions);
     }
 
     @Override
@@ -28,7 +27,6 @@ public class SessionTrackingListener implements HttpSessionListener {
         if (activeSessions > 0) {
             activeSessions--;
         }
-        System.out.println("Session Destroyed. Current online users: " + activeSessions);
     }
 
     public static int getActiveSessions() {
