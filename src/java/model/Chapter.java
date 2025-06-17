@@ -4,12 +4,8 @@
  */
 package model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-/**
- *
- * @author ADMIN
- */
 public class Chapter {
     private int id;
     private int ebookID;
@@ -17,7 +13,7 @@ public class Chapter {
     private String title;
     private double number;
     private String contentUrl;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     private String accessLevel;
     private int viewCount;
     private int likeCount;
@@ -25,7 +21,7 @@ public class Chapter {
     public Chapter() {
     }
 
-    public Chapter(int id, int ebookID, Integer volumeID, String title, double number, String contentUrl, LocalDate createdAt, String accessLevel, int viewCount, int likeCount) {
+    public Chapter(int id, int ebookID, Integer volumeID, String title, double number, String contentUrl, LocalDateTime createdAt, String accessLevel, int viewCount, int likeCount) {
         this.id = id;
         this.ebookID = ebookID;
         this.volumeID = volumeID;
@@ -86,11 +82,11 @@ public class Chapter {
         this.contentUrl = contentUrl;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
