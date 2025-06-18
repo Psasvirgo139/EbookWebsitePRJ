@@ -22,6 +22,7 @@ public class Ebook {
     private LocalDate createdAt;
     private int viewCount;
     private String coverUrl;
+    
 
     public Ebook() {
     }
