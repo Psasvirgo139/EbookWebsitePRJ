@@ -4,6 +4,7 @@ import DAO.DBConnection;
 import model.Ebook;
 
 import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class EBookDAO implements IEBookDAO {
     public void insert(Ebook ebook) throws SQLException {
         String sql = "INSERT INTO Ebooks(title, description, release_type, language, uploader_id, cover_url) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setString(1, ebook.getTitle());
             ps.setString(2, ebook.getDescription());
             ps.setString(3, ebook.getReleaseType());
@@ -91,4 +93,5 @@ public class EBookDAO implements IEBookDAO {
         }
         return e;
     }
+
 }

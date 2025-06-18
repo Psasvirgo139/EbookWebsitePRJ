@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package DAO.user;
 
-import java.sql.SQLException;
+import java.sql.SQLException;          // ⬅ thêm
 import java.util.List;
 import model.User;
+import model.UserInfor;               // (giữ lại nếu UserInfor sẽ dùng)
 
-/**
- *
- * @author ADMIN
- */
 public interface IUserDAO {
     public User checkLogin(String username, String password);
     public void insertUser(User user) throws SQLException;
@@ -20,4 +13,5 @@ public interface IUserDAO {
     public List<User> selectAllUsers();
     public boolean deleteUser(int id) throws SQLException;
     public boolean updateUser(User user) throws SQLException;
+    UserInfor getUserInforById(Integer id);  
 }

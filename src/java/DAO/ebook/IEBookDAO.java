@@ -10,4 +10,5 @@ public interface IEBookDAO {
     void insert(Ebook ebook) throws SQLException;
     void update(Ebook ebook) throws SQLException;
     void delete(int id) throws SQLException;
+
 }

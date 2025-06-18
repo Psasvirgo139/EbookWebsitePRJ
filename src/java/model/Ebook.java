@@ -19,6 +19,7 @@ public class Ebook {
     private LocalDateTime createdAt;
     private int viewCount;
     private String coverUrl;
+    
 
     public Ebook() {
     }
