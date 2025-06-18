@@ -6,12 +6,12 @@ import model.User;
 import model.UserInfor;               // (giữ lại nếu UserInfor sẽ dùng)
 
 public interface IUserDAO {
-    User checkLogin(String username, String password);    // trả về null nếu sai
-    void insertUser(User user) throws SQLException;
-    List<User> search(String searchName);
-    User selectUser(int id);
-    List<User> selectAllUsers();
-    boolean deleteUser(int id) throws SQLException;
-    boolean updateUser(User user) throws SQLException;
-      UserInfor getUserInforById(Integer id);  
+    public User checkLogin(String username, String password);
+    public void insertUser(User user) throws SQLException;
+    public List<User> search(String searchName);
+    public User selectUser(int id);
+    public List<User> selectAllUsers();
+    public boolean deleteUser(int id) throws SQLException;
+    public boolean updateUser(User user) throws SQLException;
+    UserInfor getUserInforById(Integer id);  
 }
